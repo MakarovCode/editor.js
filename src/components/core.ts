@@ -299,7 +299,12 @@ export default class Core {
         // _.log(`Preparing ${module} module`, 'time');
 
         try {
-          await this.moduleInstances[module].prepare();
+          if (module != "RectangleSelection" && module != "BlockSelection" && module != "CrossBlockSelection"){
+            await this.moduleInstances[module].prepare();
+          }
+          else{
+            _.log(`Module ${module} was skipped because of YAYA`, 'warn', null);
+          }
         } catch (e) {
           /**
            * CriticalError's will not be caught

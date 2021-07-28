@@ -118,7 +118,7 @@ function _log(
     argsToPass.push(args);
   }
 
-  const editorLabelText = `Editor.js ${VERSION}`;
+  const editorLabelText = `Editor.js SCO ${VERSION}`;
   const editorLabelStyle = `line-height: 1em;
             color: #006FEA;
             display: inline-block;

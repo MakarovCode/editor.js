@@ -116,6 +116,7 @@ export default class RectangleSelection extends Module {
    * @param {number} pageY - Y coord of mouse
    */
   public startSelection(pageX, pageY): void {
+
     const elemWhereSelectionStart = document.elementFromPoint(pageX - window.pageXOffset, pageY - window.pageYOffset);
 
     /**
@@ -179,6 +180,8 @@ export default class RectangleSelection extends Module {
    * Sets Module necessary event handlers
    */
   private enableModuleBindings(): void {
+
+    return;
     const { container } = this.genHTML();
 
     this.listeners.on(container, 'mousedown', (mouseEvent: MouseEvent) => {
