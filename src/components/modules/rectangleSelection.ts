@@ -181,7 +181,7 @@ export default class RectangleSelection extends Module {
    */
   private enableModuleBindings(): void {
 
-    return;
+    // return;
     const { container } = this.genHTML();
 
     this.listeners.on(container, 'mousedown', (mouseEvent: MouseEvent) => {
