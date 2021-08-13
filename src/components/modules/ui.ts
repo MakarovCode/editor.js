@@ -669,8 +669,8 @@ export default class UI extends Module<UINodes> {
     }
 
     const stopPropagation = (): void => {
-      event.stopImmediatePropagation();
-      event.stopPropagation();
+      // event.stopImmediatePropagation();
+      // event.stopPropagation();
     };
 
     /**

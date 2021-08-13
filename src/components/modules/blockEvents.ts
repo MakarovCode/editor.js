@@ -282,6 +282,12 @@ export default class BlockEvents extends Module {
     const currentBlock = BlockManager.currentBlock;
     const tool = currentBlock.tool;
 
+    // MODIFIED SIMON *********
+    if (currentBlock.name == "circle" || currentBlock.name == "row" || currentBlock.name == "grid"){
+      return;
+    }
+    // MODIFIED SIMON *********
+
     /**
      * Check if Block should be removed by current Backspace keydown
      */
