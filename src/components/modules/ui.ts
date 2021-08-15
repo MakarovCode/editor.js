@@ -724,15 +724,21 @@ export default class UI extends Module<UINodes> {
     const isDefaultBlock = this.Editor.BlockManager.currentBlock.tool.isDefault;
 
     if (isDefaultBlock) {
+      stopPropagation();
       const element = event.target as HTMLElement;
       console.log(element.tagName);
-      if (element.tagName === "BUTTON" || element.tagName === "SVG") {
-        return;
+      if (element.tagName === "BUTTON") {
+        element.nextElementSibling.classList.add("show");
       }
-      // if (event.srcElement.tagName == "BUTTON" || event.srcElement.tagName == "SVG"){
-      //   return;
-      // }
-      stopPropagation();
+      else if (element.tagName === "svg") {
+        const parent = element.parentNode as HTMLElement;
+        parent.nextElementSibling.classList.add("show");
+      }
+      else if (element.tagName === "path") {
+        let parent = element.parentNode as HTMLElement;
+        parent = parent.parentNode as HTMLElement;
+        parent.nextElementSibling.classList.add("show");
+      }
 
       /**
       * Check isEmpty only for paragraphs to prevent unnecessary tree-walking on Tools with many nodes (for ex. Table)

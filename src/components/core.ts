@@ -297,7 +297,8 @@ export default class Core {
     await modulesToPrepare.reduce(
       (promise, module) => promise.then(async () => {
         // _.log(`Preparing ${module} module`, 'time');
-        _.log(`SIMON VERSION 1.001`, 'warn', "SUTRA VERSION");
+        _.log(`LOCAL VERSION 1.005`, 'warn', "EDITOR JS SUTRA FORK");
+        // _.log(`GITHUB VERSION 1.001`, 'warn', "EDITOR JS SUTRA FORK");
         try {
 
           await this.moduleInstances[module].prepare();
