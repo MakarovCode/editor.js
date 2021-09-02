@@ -283,7 +283,7 @@ export default class BlockEvents extends Module {
     const tool = currentBlock.tool;
 
     // MODIFIED SIMON *********
-    if (currentBlock.name == "circle" || currentBlock.name == "row" || currentBlock.name == "grid"){
+    if (BlockManager.previousBlock.name == "circle" || BlockManager.previousBlock.name == "row" || BlockManager.previousBlock.name == "grid" || BlockManager.previousBlock.name == "topic"){
       console.log(`DELETE SKIPPED: ${currentBlock.name} cannot be deleted on backspace `)
       return;
     }
