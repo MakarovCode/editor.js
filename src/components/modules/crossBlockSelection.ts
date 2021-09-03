@@ -147,6 +147,12 @@ export default class CrossBlockSelection extends Module {
    * @param {MouseEvent} event - mouse down event
    */
   private enableCrossBlockSelection(event: MouseEvent): void {
+      // MODIFIED SIMON *********
+    if (this.Editor.BlockSelection.checkIfStartedFromToolbox(event.pageX,event.pageY)){
+      console.log("======>>DO NOT enableCrossBlockSelection");
+      return
+    }
+
     const { UI } = this.Editor;
 
     /**

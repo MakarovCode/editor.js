@@ -116,6 +116,10 @@ export default class RectangleSelection extends Module {
    * @param {number} pageY - Y coord of mouse
    */
   public startSelection(pageX, pageY): void {
+    // MODIFIED SIMON *********
+    if (this.Editor.BlockSelection.startedFromToolbox){
+      return;
+    }
 
     const elemWhereSelectionStart = document.elementFromPoint(pageX - window.pageXOffset, pageY - window.pageYOffset);
 
@@ -214,7 +218,14 @@ export default class RectangleSelection extends Module {
     if (mouseEvent.button !== this.MAIN_MOUSE_BUTTON) {
       return;
     }
-    this.startSelection(mouseEvent.pageX, mouseEvent.pageY);
+      // MODIFIED SIMON *********
+    if (this.Editor.BlockSelection.checkIfStartedFromToolbox(mouseEvent.pageX,mouseEvent.pageY)){
+      console.log("======>>DO NOT START SELECTION");
+    }
+    else{
+      console.log("======>>SELECTION STARTED");
+      this.startSelection(mouseEvent.pageX, mouseEvent.pageY);
+    }
   }
 
   /**
@@ -223,6 +234,10 @@ export default class RectangleSelection extends Module {
    * @param {MouseEvent} mouseEvent - mouse event payload
    */
   private processMouseMove(mouseEvent: MouseEvent): void {
+      // MODIFIED SIMON *********
+    if (this.Editor.BlockSelection.startedFromToolbox){
+      return;
+    }
     this.changingRectangle(mouseEvent);
     this.scrollByZones(mouseEvent.clientY);
   }
@@ -239,6 +254,10 @@ export default class RectangleSelection extends Module {
    * @param {MouseEvent} mouseEvent - mouse event payload
    */
   private processScroll(mouseEvent: MouseEvent): void {
+      // MODIFIED SIMON *********
+    if (this.Editor.BlockSelection.startedFromToolbox){
+      return;
+    }
     this.changingRectangle(mouseEvent);
   }
 
@@ -449,10 +468,17 @@ export default class RectangleSelection extends Module {
    * @param index - index of block in redactor
    */
   private addBlockInSelection(index): void {
-    if (this.rectCrossesBlocks) {
-      this.Editor.BlockSelection.selectBlockByIndex(index);
+    const __block = this.Editor.BlockManager.getBlockByIndex(index);
+    if (__block.name != "circle" && __block.name != "row" && __block.name != "grid" && __block.name != "topic" && __block.name != "image" && __block.name != "embed" && __block.name != "linkTool"){
+      if (this.rectCrossesBlocks) {
+        this.Editor.BlockSelection.selectBlockByIndex(index);
+      }
+      this.stackOfSelected.push(index);
+      console.log(`addBlockInSelection ADDED: ${__block.name} was selected `)
     }
-    this.stackOfSelected.push(index);
+    else{
+      console.log(`addBlockInSelection SKIPPED: ${__block.name} cannot be selected `)
+    }
   }
 
   /**

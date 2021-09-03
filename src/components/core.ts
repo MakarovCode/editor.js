@@ -288,17 +288,19 @@ export default class Core {
       'UI',
       'BlockManager',
       'Paste',
-      // 'BlockSelection',
-      // 'RectangleSelection',
-      // 'CrossBlockSelection',
+
+      'BlockSelection',
+      'RectangleSelection',
+      'CrossBlockSelection',
+
       'ReadOnly',
     ];
 
     await modulesToPrepare.reduce(
       (promise, module) => promise.then(async () => {
         // _.log(`Preparing ${module} module`, 'time');
-        // _.log(`LOCAL VERSION 1.006`, 'warn', "EDITOR JS SUTRA FORK");
-        _.log(`GITHUB VERSION 1.007`, 'warn', "EDITOR JS SUTRA FORK");
+        // _.log(`LOCAL VERSION 1.018`, 'warn', "EDITOR JS SUTRA FORK");
+        _.log(`GITHUB VERSION 1.018`, 'warn', "EDITOR JS SUTRA FORK");
         try {
 
           await this.moduleInstances[module].prepare();

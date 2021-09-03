@@ -27,6 +27,8 @@ export default class BlockSelection extends Module {
    * @private
    */
   private anyBlockSelectedCache: boolean | null = null;
+    // MODIFIED SIMON *********
+  public startedFromToolbox = false;
 
   /**
    * Sanitizer Config
@@ -465,5 +467,20 @@ export default class BlockSelection extends Module {
 
     /** close InlineToolbar if we selected all Blocks */
     this.Editor.InlineToolbar.close();
+  }
+    // MODIFIED SIMON *********
+  public checkIfStartedFromToolbox(x,y):boolean {
+    const startElemenets = document.elementsFromPoint(x, y);
+
+    for (let i = 0; i < startElemenets.length; i++) {
+      const element = startElemenets[i];
+      if (element.classList.contains("customToolbox")){
+        console.log("======>>DO NOT START SELECTION");
+        this.startedFromToolbox = true;
+        return true
+      }
+    }
+    this.startedFromToolbox = false;
+    return false
   }
 }

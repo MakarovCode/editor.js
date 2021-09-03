@@ -477,9 +477,15 @@ export default class BlockManager extends Module {
       if (!this.blocks[index].selected) {
         continue;
       }
-
-      this.removeBlock(index);
-      firstSelectedBlockIndex = index;
+      // MODIFIED SIMON *********
+      if (this.blocks[index].name == "circle" || this.blocks[index].name == "row" || this.blocks[index].name == "grid" || this.blocks[index].name == "topic" || this.blocks[index].name == "image" || this.blocks[index].name == "embed" || this.blocks[index].name == "linkTool" || !this.blocks[index].holder.classList.contains("col-md-12")){
+        console.log(`DELETE SKIPPED: ${this.blocks[index].name} cannot be deleted on backspace `)
+      }
+      else{
+        this.removeBlock(index);
+        firstSelectedBlockIndex = index;
+      }
+      // MODIFIED SIMON *********
     }
 
     return firstSelectedBlockIndex;
