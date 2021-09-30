@@ -474,7 +474,8 @@ export default class BlockSelection extends Module {
 
     for (let i = 0; i < startElemenets.length; i++) {
       const element = startElemenets[i];
-      if (element.classList.contains("customToolbox")){
+      // console.log(element);
+      if (element.classList.contains("custom-drag-button")){
         console.log("======>>DO NOT START SELECTION");
         this.startedFromToolbox = true;
         return true
