@@ -218,6 +218,10 @@ export default class BlockEvents extends Module {
      * Don't handle Enter keydowns when Tool sets enableLineBreaks to true.
      * Uses for Tools like <code> where line breaks should be handled by default behaviour.
      */
+    if (!currentBlock.holder.classList.contains("col-md-12")){
+      return
+    }
+
     if (currentBlock.tool.isLineBreaksEnabled) {
       return;
     }
