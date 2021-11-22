@@ -1,10 +1,10 @@
 /**
- * @class BlockSelection
- * @classdesc Manages Block selection with shortcut CMD+A
- *
- * @module BlockSelection
- * @version 1.0.0
- */
+* @class BlockSelection
+* @classdesc Manages Block selection with shortcut CMD+A
+*
+* @module BlockSelection
+* @version 1.0.0
+*/
 import Module from '../__module';
 import Block from '../block';
 import * as _ from '../utils';
@@ -16,57 +16,169 @@ import { SanitizerConfig } from '../../../types/configs';
 import { clean } from '../utils/sanitizer';
 
 /**
- *
- */
+*
+*/
 export default class BlockSelection extends Module {
   /**
-   * Sometimes .anyBlockSelected can be called frequently,
-   * for example at ui@selectionChange (to clear native browser selection in CBS)
-   * We use cache to prevent multiple iterations through all the blocks
-   *
-   * @private
-   */
+  * Sometimes .anyBlockSelected can be called frequently,
+  * for example at ui@selectionChange (to clear native browser selection in CBS)
+  * We use cache to prevent multiple iterations through all the blocks
+  *
+  * @private
+  */
   private anyBlockSelectedCache: boolean | null = null;
-    // MODIFIED SIMON *********
+  // MODIFIED SIMON *********
   public startedFromToolbox = false;
 
   /**
-   * Sanitizer Config
-   *
-   * @returns {SanitizerConfig}
-   */
+  * Sanitizer Config
+  *
+  * @returns {SanitizerConfig}
+  */
   private get sanitizerConfig(): SanitizerConfig {
     return {
-      p: {},
-      h1: {},
-      h2: {},
-      h3: {},
-      h4: {},
-      h5: {},
-      h6: {},
-      ol: {},
-      ul: {},
-      li: {},
-      br: true,
+      div: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      p: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h1: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h2: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h3: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h4: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h5: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      h6: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      ol: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      ul: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      li: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return {};
+        }
+      },
+      br: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return true;
+        }
+      },
       img: {
         src: true,
         width: true,
         height: true,
       },
-      a: {
-        href: true,
+      a: function(el){
+        if (el.classList.contains('no-copy-to-clipboard')){
+          // Not copied
+          return undefined;
+        } else {
+          // If blockquote has class 'indent', also allow style.
+          return { 'href': true };
+        }
       },
       b: {},
       i: {},
-      u: {},
+      u: {}
     };
   }
 
   /**
-   * Flag that identifies all Blocks selection
-   *
-   * @returns {boolean}
-   */
+  * Flag that identifies all Blocks selection
+  *
+  * @returns {boolean}
+  */
   public get allBlocksSelected(): boolean {
     const { BlockManager } = this.Editor;
 
@@ -74,10 +186,10 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Set selected all blocks
-   *
-   * @param {boolean} state - state to set
-   */
+  * Set selected all blocks
+  *
+  * @param {boolean} state - state to set
+  */
   public set allBlocksSelected(state: boolean) {
     const { BlockManager } = this.Editor;
 
@@ -89,10 +201,10 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Flag that identifies any Block selection
-   *
-   * @returns {boolean}
-   */
+  * Flag that identifies any Block selection
+  *
+  * @returns {boolean}
+  */
   public get anyBlockSelected(): boolean {
     const { BlockManager } = this.Editor;
 
@@ -104,64 +216,64 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Return selected Blocks array
-   *
-   * @returns {Block[]}
-   */
+  * Return selected Blocks array
+  *
+  * @returns {Block[]}
+  */
   public get selectedBlocks(): Block[] {
     return this.Editor.BlockManager.blocks.filter((block: Block) => block.selected);
   }
 
   /**
-   * Flag used to define block selection
-   * First CMD+A defines it as true and then second CMD+A selects all Blocks
-   *
-   * @type {boolean}
-   */
+  * Flag used to define block selection
+  * First CMD+A defines it as true and then second CMD+A selects all Blocks
+  *
+  * @type {boolean}
+  */
   private needToSelectAll = false;
 
   /**
-   * Flag used to define native input selection
-   * In this case we allow double CMD+A to select Block
-   *
-   * @type {boolean}
-   */
+  * Flag used to define native input selection
+  * In this case we allow double CMD+A to select Block
+  *
+  * @type {boolean}
+  */
   private nativeInputSelected = false;
 
   /**
-   * Flag identifies any input selection
-   * That means we can select whole Block
-   *
-   * @type {boolean}
-   */
+  * Flag identifies any input selection
+  * That means we can select whole Block
+  *
+  * @type {boolean}
+  */
   private readyToBlockSelection = false;
 
   /**
-   * SelectionUtils instance
-   *
-   * @type {SelectionUtils}
-   */
+  * SelectionUtils instance
+  *
+  * @type {SelectionUtils}
+  */
   private selection: SelectionUtils;
 
   /**
-   * Module Preparation
-   * Registers Shortcuts CMD+A and CMD+C
-   * to select all and copy them
-   */
+  * Module Preparation
+  * Registers Shortcuts CMD+A and CMD+C
+  * to select all and copy them
+  */
   public prepare(): void {
     this.selection = new SelectionUtils();
 
     /**
-     * CMD/CTRL+A selection shortcut
-     */
+    * CMD/CTRL+A selection shortcut
+    */
     Shortcuts.add({
       name: 'CMD+A',
       handler: (event) => {
         const { BlockManager, ReadOnly } = this.Editor;
 
         /**
-         * We use Editor's Block selection on CMD+A ShortCut instead of Browsers
-         */
+        * We use Editor's Block selection on CMD+A ShortCut instead of Browsers
+        */
         if (ReadOnly.isEnabled) {
           event.preventDefault();
           this.selectAllBlocks();
@@ -170,13 +282,13 @@ export default class BlockSelection extends Module {
         }
 
         /**
-         * When one page consist of two or more EditorJS instances
-         * Shortcut module tries to handle all events.
-         * Thats why Editor's selection works inside the target Editor, but
-         * for others error occurs because nothing to select.
-         *
-         * Prevent such actions if focus is not inside the Editor
-         */
+        * When one page consist of two or more EditorJS instances
+        * Shortcut module tries to handle all events.
+        * Thats why Editor's selection works inside the target Editor, but
+        * for others error occurs because nothing to select.
+        *
+        * Prevent such actions if focus is not inside the Editor
+        */
         if (!BlockManager.currentBlock) {
           return;
         }
@@ -188,25 +300,25 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Toggle read-only state
-   *
-   *  - Remove all ranges
-   *  - Unselect all Blocks
-   *
-   * @param {boolean} readOnlyEnabled - "read only" state
-   */
+  * Toggle read-only state
+  *
+  *  - Remove all ranges
+  *  - Unselect all Blocks
+  *
+  * @param {boolean} readOnlyEnabled - "read only" state
+  */
   public toggleReadOnly(readOnlyEnabled: boolean): void {
     SelectionUtils.get()
-      .removeAllRanges();
+    .removeAllRanges();
 
     this.allBlocksSelected = false;
   }
 
   /**
-   * Remove selection of Block
-   *
-   * @param {number?} index - Block index according to the BlockManager's indexes
-   */
+  * Remove selection of Block
+  *
+  * @param {number?} index - Block index according to the BlockManager's indexes
+  */
   public unSelectBlockByIndex(index?): void {
     const { BlockManager } = this.Editor;
 
@@ -224,11 +336,11 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Clear selection from Blocks
-   *
-   * @param {Event} reason - event caused clear of selection
-   * @param {boolean} restoreSelection - if true, restore saved selection
-   */
+  * Clear selection from Blocks
+  *
+  * @param {Event} reason - event caused clear of selection
+  * @param {boolean} restoreSelection - if true, restore saved selection
+  */
   public clearSelection(reason?: Event, restoreSelection = false): void {
     const { BlockManager, Caret, RectangleSelection } = this.Editor;
 
@@ -240,9 +352,9 @@ export default class BlockSelection extends Module {
     const isPrintableKey = isKeyboard && _.isPrintableKey((reason as KeyboardEvent).keyCode);
 
     /**
-     * If reason caused clear of the selection was printable key and any block is selected,
-     * remove selected blocks and insert pressed key
-     */
+    * If reason caused clear of the selection was printable key and any block is selected,
+    * remove selected blocks and insert pressed key
+    */
     if (this.anyBlockSelected && isKeyboard && isPrintableKey && !SelectionUtils.isSelectionExists) {
       const indexToInsert = BlockManager.removeSelectedBlocks();
 
@@ -252,11 +364,11 @@ export default class BlockSelection extends Module {
         const eventKey = (reason as KeyboardEvent).key;
 
         /**
-         * If event.key length >1 that means key is special (e.g. Enter or Dead or Unidentifier).
-         * So we use empty string
-         *
-         * @see https://developer.mozilla.org/ru/docs/Web/API/KeyboardEvent/key
-         */
+        * If event.key length >1 that means key is special (e.g. Enter or Dead or Unidentifier).
+        * So we use empty string
+        *
+        * @see https://developer.mozilla.org/ru/docs/Web/API/KeyboardEvent/key
+        */
         Caret.insertContentAtCaretPosition(eventKey.length > 1 ? '' : eventKey);
       }, 20)();
     }
@@ -270,9 +382,9 @@ export default class BlockSelection extends Module {
     }
 
     /**
-     * Restore selection when Block is already selected
-     * but someone tries to write something.
-     */
+    * Restore selection when Block is already selected
+    * but someone tries to write something.
+    */
     if (restoreSelection) {
       this.selection.restore();
     }
@@ -282,60 +394,60 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Reduce each Block and copy its content
-   *
-   * @param {ClipboardEvent} e - copy/cut event
-   *
-   * @returns {Promise<void>}
-   */
+  * Reduce each Block and copy its content
+  *
+  * @param {ClipboardEvent} e - copy/cut event
+  *
+  * @returns {Promise<void>}
+  */
   public copySelectedBlocks(e: ClipboardEvent): Promise<void> {
     /**
-     * Prevent default copy
-     */
+    * Prevent default copy
+    */
     e.preventDefault();
 
     const fakeClipboard = $.make('div');
 
     this.selectedBlocks.forEach((block) => {
       /**
-       * Make <p> tag that holds clean HTML
-       */
+      * Make <p> tag that holds clean HTML
+      */
       const cleanHTML = clean(block.holder.innerHTML, this.sanitizerConfig);
       const fragment = $.make('p');
-
       fragment.innerHTML = cleanHTML;
+      console.log(fragment)
       fakeClipboard.appendChild(fragment);
     });
 
     const textPlain = Array.from(fakeClipboard.childNodes).map((node) => node.textContent)
-      .join('\n\n');
+    .join('\n\n');
     const textHTML = fakeClipboard.innerHTML;
 
     e.clipboardData.setData('text/plain', textPlain);
     e.clipboardData.setData('text/html', textHTML);
 
     return Promise
-      .all(this.selectedBlocks.map((block) => block.save()))
-      .then(savedData => {
-        try {
-          e.clipboardData.setData(this.Editor.Paste.MIME_TYPE, JSON.stringify(savedData));
-        } catch (err) {
-          // In Firefox we can't set data in async function
-        }
-      });
+    .all(this.selectedBlocks.map((block) => block.save()))
+    .then(savedData => {
+      try {
+        e.clipboardData.setData(this.Editor.Paste.MIME_TYPE, JSON.stringify(savedData));
+      } catch (err) {
+        // In Firefox we can't set data in async function
+      }
+    });
   }
 
   /**
-   * select Block
-   *
-   * @param {number?} index - Block index according to the BlockManager's indexes
-   */
+  * select Block
+  *
+  * @param {number?} index - Block index according to the BlockManager's indexes
+  */
   public selectBlockByIndex(index?): void {
     const { BlockManager } = this.Editor;
 
     /**
-     * Remove previous focused Block's state
-     */
+    * Remove previous focused Block's state
+    */
     BlockManager.clearFocused();
 
     let block;
@@ -349,7 +461,7 @@ export default class BlockSelection extends Module {
     /** Save selection */
     this.selection.save();
     SelectionUtils.get()
-      .removeAllRanges();
+    .removeAllRanges();
 
     block.selected = true;
 
@@ -360,27 +472,27 @@ export default class BlockSelection extends Module {
   }
 
   /**
-   * Clear anyBlockSelected cache
-   */
+  * Clear anyBlockSelected cache
+  */
   public clearCache(): void {
     this.anyBlockSelectedCache = null;
   }
 
   /**
-   * Module destruction
-   * De-registers Shortcut CMD+A
-   */
+  * Module destruction
+  * De-registers Shortcut CMD+A
+  */
   public destroy(): void {
     /** Selection shortcut */
     Shortcuts.remove(this.Editor.UI.nodes.redactor, 'CMD+A');
   }
 
   /**
-   * First CMD+A selects all input content by native behaviour,
-   * next CMD+A keypress selects all blocks
-   *
-   * @param {KeyboardEvent} event - keyboard event
-   */
+  * First CMD+A selects all input content by native behaviour,
+  * next CMD+A keypress selects all blocks
+  *
+  * @param {KeyboardEvent} event - keyboard event
+  */
   private handleCommandA(event: KeyboardEvent): void {
     this.Editor.RectangleSelection.clearSelection();
 
@@ -395,9 +507,9 @@ export default class BlockSelection extends Module {
     const inputs = workingBlock.inputs;
 
     /**
-     * If Block has more than one editable element allow native selection
-     * Second cmd+a will select whole Block
-     */
+    * If Block has more than one editable element allow native selection
+    * Second cmd+a will select whole Block
+    */
     if (inputs.length > 1 && !this.readyToBlockSelection) {
       this.readyToBlockSelection = true;
 
@@ -412,63 +524,63 @@ export default class BlockSelection extends Module {
 
     if (this.needToSelectAll) {
       /**
-       * Prevent default selection
-       */
+      * Prevent default selection
+      */
       event.preventDefault();
 
       this.selectAllBlocks();
 
       /**
-       * Disable any selection after all Blocks selected
-       */
+      * Disable any selection after all Blocks selected
+      */
       this.needToSelectAll = false;
       this.readyToBlockSelection = false;
 
       /**
-       * Close ConversionToolbar when all Blocks selected
-       */
+      * Close ConversionToolbar when all Blocks selected
+      */
       this.Editor.ConversionToolbar.close();
     } else if (this.readyToBlockSelection) {
       /**
-       * prevent default selection when we use custom selection
-       */
+      * prevent default selection when we use custom selection
+      */
       event.preventDefault();
 
       /**
-       * select working Block
-       */
+      * select working Block
+      */
       this.selectBlockByIndex();
 
       /**
-       * Enable all Blocks selection if current Block is selected
-       */
+      * Enable all Blocks selection if current Block is selected
+      */
       this.needToSelectAll = true;
     }
   }
 
   /**
-   * Select All Blocks
-   * Each Block has selected setter that makes Block copyable
-   */
+  * Select All Blocks
+  * Each Block has selected setter that makes Block copyable
+  */
   private selectAllBlocks(): void {
     /**
-     * Save selection
-     * Will be restored when closeSelection fired
-     */
+    * Save selection
+    * Will be restored when closeSelection fired
+    */
     this.selection.save();
 
     /**
-     * Remove Ranges from Selection
-     */
+    * Remove Ranges from Selection
+    */
     SelectionUtils.get()
-      .removeAllRanges();
+    .removeAllRanges();
 
     this.allBlocksSelected = true;
 
     /** close InlineToolbar if we selected all Blocks */
     this.Editor.InlineToolbar.close();
   }
-    // MODIFIED SIMON *********
+  // MODIFIED SIMON *********
   public checkIfStartedFromToolbox(x,y):boolean {
     const startElemenets = document.elementsFromPoint(x, y);
 

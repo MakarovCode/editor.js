@@ -31,7 +31,7 @@ import * as _ from '../utils';
  * }
  */
 
-import HTMLJanitor from 'html-janitor';
+import HTMLJanitor from '../../../types/html_janitor.js';
 import { BlockToolData, SanitizerConfig } from '../../../types';
 import { SavedData } from '../../../types/data-formats';
 
