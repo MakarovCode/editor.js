@@ -524,7 +524,7 @@ export default class Caret extends Module {
     const range = Selection.range;
 
     if (event){
-      wrapper.innerHTML = content.replace(/(?<=<[^<>]+)\s+(?:style|class)\s*=\s*(["']).*?\1/gm, "").replace(/style=/g, "");
+      wrapper.innerHTML = content.replace(/style="[^\"]*"/gm, "").replace(/style=/g, "");
     }
     else{
       wrapper.innerHTML = content;
