@@ -560,7 +560,7 @@ export default class Paste extends Module {
 
         return {
           content,
-          isBlock,
+          isBlock: true,
           tool: tool.name,
           event,
         };
@@ -627,7 +627,7 @@ export default class Paste extends Module {
       return;
     }
 
-    Caret.insertContentAtCaretPosition(dataToInsert.content.innerHTML);
+    Caret.insertContentAtCaretPosition(dataToInsert.content.innerHTML, dataToInsert.event);
   }
 
   /**
@@ -641,11 +641,12 @@ export default class Paste extends Module {
   private async processInlinePaste(dataToInsert: PasteData): Promise<void> {
     const { BlockManager, Caret } = this.Editor;
     const { content } = dataToInsert;
-
+    console.log(content)
+    console.log(content.innerHTML)
     const currentBlockIsDefault = BlockManager.currentBlock && BlockManager.currentBlock.tool.isDefault;
 
     if (currentBlockIsDefault && content.textContent.length < Paste.PATTERN_PROCESSING_MAX_LENGTH) {
-      const blockData = await this.processPattern(content.textContent);
+      const blockData = await this.processPattern(content.innerHTML);
 
       if (blockData) {
         const needToReplaceCurrentBlock = BlockManager.currentBlock &&

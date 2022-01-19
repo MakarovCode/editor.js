@@ -517,13 +517,18 @@ export default class Caret extends Module {
    *
    * @param {string} content - content to insert
    */
-  public insertContentAtCaretPosition(content: string): void {
+  public insertContentAtCaretPosition(content: string, event = null): void {
     const fragment = document.createDocumentFragment();
     const wrapper = document.createElement('div');
     const selection = Selection.get();
     const range = Selection.range;
 
-    wrapper.innerHTML = content;
+    if (event){
+      wrapper.innerHTML = content.replace(/(?<=<[^<>]+)\s+(?:style|class)\s*=\s*(["']).*?\1/gm, "").replace(/style=/g, "");
+    }
+    else{
+      wrapper.innerHTML = content;
+    }
 
     Array.from(wrapper.childNodes).forEach((child: Node) => fragment.appendChild(child));
 
@@ -546,6 +551,7 @@ export default class Caret extends Module {
 
     selection.removeAllRanges();
     selection.addRange(newRange);
+
   }
 
   /**
