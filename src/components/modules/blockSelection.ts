@@ -430,7 +430,17 @@ export default class BlockSelection extends Module {
     .all(this.selectedBlocks.map((block) => block.save()))
     .then(savedData => {
       try {
-        e.clipboardData.setData(this.Editor.Paste.MIME_TYPE, JSON.stringify(savedData));
+        const newData = JSON.parse(JSON.stringify(savedData))
+        for (let i = 0; i < newData.length; i++) {
+          const saveD = newData[i];
+          if (saveD.data.state){
+            saveD.data.state = "new"
+          }
+          if (saveD.data.circle_id){
+            saveD.data.circle_id = null
+          }
+        }
+        e.clipboardData.setData(this.Editor.Paste.MIME_TYPE, JSON.stringify(newData));
       } catch (err) {
         // In Firefox we can't set data in async function
       }

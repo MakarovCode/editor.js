@@ -287,9 +287,11 @@ export default class BlockEvents extends Module {
     const tool = currentBlock.tool;
 
     // MODIFIED SIMON *********
-    if (BlockManager.previousBlock.name == "circle" || BlockManager.previousBlock.name == "row" || BlockManager.previousBlock.name == "grid" || BlockManager.previousBlock.name == "topic" || BlockManager.previousBlock.name == "image" || BlockManager.previousBlock.name == "embed" || BlockManager.previousBlock.name == "linkTool" || !BlockManager.previousBlock.holder.classList.contains("col-md-12") || !BlockManager.currentBlock.holder.classList.contains("col-md-12")){
-      console.log(`DELETE SKIPPED: ${BlockManager.previousBlock.name} cannot be deleted on backspace from ${BlockManager.currentBlock.name}`)
-      return;
+    if (BlockManager.previousBlock){
+      if (BlockManager.previousBlock.name == "circle" || BlockManager.previousBlock.name == "row" || BlockManager.previousBlock.name == "grid" || BlockManager.previousBlock.name == "topic" || BlockManager.previousBlock.name == "image" || BlockManager.previousBlock.name == "embed" || BlockManager.previousBlock.name == "linkTool" || !BlockManager.previousBlock.holder.classList.contains("col-md-12") || !BlockManager.currentBlock.holder.classList.contains("col-md-12")){
+        console.log(`DELETE SKIPPED: ${BlockManager.previousBlock.name} cannot be deleted on backspace from ${BlockManager.currentBlock.name}`)
+        return;
+      }
     }
     // MODIFIED SIMON *********
 
