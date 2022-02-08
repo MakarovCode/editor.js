@@ -545,12 +545,17 @@ export default class Caret extends Module {
     range.insertNode(fragment);
 
     /** Cross-browser caret insertion */
-    const newRange = document.createRange();
+    try {
 
-    newRange.setStart(lastChild, lastChild.textContent.length);
+      const newRange = document.createRange();
 
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+      newRange.setStart(lastChild, lastChild.textContent.length);
+
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    } catch (error) {
+
+    }
 
   }
 

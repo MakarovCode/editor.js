@@ -228,11 +228,18 @@ export default class Paste extends Module {
       return;
     }
 
+
     if (dataToInsert.length === 1) {
-      if (!dataToInsert[0].isBlock) {
+
+      if (data.indexOf("<iframe") >= 0){
         this.processInlinePaste(dataToInsert.pop());
-      } else {
-        this.processSingleBlock(dataToInsert.pop());
+      }
+      else{
+        if (!dataToInsert[0].isBlock) {
+          this.processInlinePaste(dataToInsert.pop());
+        } else {
+          this.processSingleBlock(dataToInsert.pop());
+        }
       }
 
       return;
@@ -646,7 +653,13 @@ export default class Paste extends Module {
     const currentBlockIsDefault = BlockManager.currentBlock && BlockManager.currentBlock.tool.isDefault;
 
     if (currentBlockIsDefault && content.textContent.length < Paste.PATTERN_PROCESSING_MAX_LENGTH) {
-      const blockData = await this.processPattern(content.innerHTML);
+      let blockData = null;
+      if (content.innerHTML.indexOf("iframe") >= 0){
+        blockData = await this.processPattern(content.textContent);
+      }
+      else{
+        blockData = await this.processPattern(content.innerHTML);
+      }
 
       if (blockData) {
         const needToReplaceCurrentBlock = BlockManager.currentBlock &&
