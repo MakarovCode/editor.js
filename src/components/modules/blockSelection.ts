@@ -433,11 +433,16 @@ export default class BlockSelection extends Module {
         const newData = JSON.parse(JSON.stringify(savedData))
         for (let i = 0; i < newData.length; i++) {
           const saveD = newData[i];
-          if (saveD.data.state){
-            saveD.data.state = "new"
-          }
-          if (saveD.data.circle_id){
-            saveD.data.circle_id = null
+          console.log("COPY DATA =========")
+          console.log(saveD)
+          // if (saveD.data.state){
+          // }
+          // if (saveD.data.circle_id){
+          // }
+          saveD.data.state = "new"
+          saveD.data.circle_id = null
+          if (saveD.tool == "topic"){
+            saveD.data.id = `copy-${saveD.data.id}`
           }
         }
         e.clipboardData.setData(this.Editor.Paste.MIME_TYPE, JSON.stringify(newData));

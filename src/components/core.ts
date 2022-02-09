@@ -302,8 +302,8 @@ export default class Core {
         // https://medium.com/@chrisdmasters/how-to-fork-a-dependency-and-use-it-locally-in-a-project-707c80d3449c
         // https://gist.github.com/rsp/f7d6aec4f2bbac3de4bc3f88d871cc70
 
-        // _.log(`LOCAL VERSION 1.059`, 'warn', "EDITOR JS SUTRA FORK");
-        _.log(`GITHUB VERSION 1.059`, 'warn', "EDITOR JS SUTRA FORK");
+        // _.log(`LOCAL VERSION 1.063`, 'warn', "EDITOR JS SUTRA FORK");
+        _.log(`GITHUB VERSION 1.063`, 'warn', "EDITOR JS SUTRA FORK");
         try {
 
           await this.moduleInstances[module].prepare();
